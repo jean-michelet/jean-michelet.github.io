@@ -38,7 +38,21 @@ const canonical = new URL(path, site.siteUrl).toString();
           <strong>Jean Michelet</strong>
           <span>Backend and cloud engineering</span>
         </a>
-        <nav class="nav nav-primary" aria-label="Primary navigation">
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-navigation"
+          data-nav-toggle
+        >
+          <span class="nav-toggle-label">Menu</span>
+          <span class="nav-toggle-lines" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+        <nav class="nav nav-primary" id="primary-navigation" aria-label="Primary navigation">
           {
             navigation.map((item) => (
               <a href={item.href}>{item.label}</a>
@@ -56,6 +70,31 @@ const canonical = new URL(path, site.siteUrl).toString();
     <script is:inline>
       const year = document.querySelector("[data-current-year]");
       if (year) year.textContent = String(new Date().getFullYear());
+
+      const navToggle = document.querySelector("[data-nav-toggle]");
+      const primaryNavigation = document.querySelector("#primary-navigation");
+
+      const closeNavigation = () => {
+        navToggle?.setAttribute("aria-expanded", "false");
+        primaryNavigation?.removeAttribute("data-open");
+      };
+
+      navToggle?.addEventListener("click", () => {
+        const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+        navToggle.setAttribute("aria-expanded", String(!isOpen));
+        if (isOpen) primaryNavigation?.removeAttribute("data-open");
+        else primaryNavigation?.setAttribute("data-open", "");
+      });
+
+      primaryNavigation?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeNavigation);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeNavigation();
+      });
+
+      window.matchMedia("(min-width: 801px)").addEventListener("change", closeNavigation);
     </script>
   </body>
 </html>
