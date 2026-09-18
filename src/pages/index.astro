@@ -1,0 +1,135 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
+import { site, testimonials } from "../data/site";
+
+const managerTestimonials = testimonials.filter((item) => item.group === "manager");
+const colleagueTestimonials = testimonials.filter((item) => item.group === "colleague");
+---
+
+<BaseLayout
+  title="Software & Cloud Developer | Fastify Team"
+  description="Jean Michelet is a software and cloud developer, Fastify team member, mathematics student, and open-source contributor."
+  path="/"
+>
+  <Hero
+    eyebrow={site.role}
+    title={site.headline}
+    intro={site.intro}
+    primaryHref="#about"
+    primaryLabel="About me"
+    secondaryHref={site.linkedinUrl}
+    secondaryLabel="Connect on LinkedIn"
+    tertiaryHref={site.githubUrl}
+    tertiaryLabel="GitHub"
+  />
+
+  <section class="section section-anchor" id="about">
+    <div class="section-heading">
+      <span class="eyebrow">About</span>
+      <h2>Experience across products, platforms, and open source</h2>
+      <div class="section-line" aria-hidden="true"></div>
+    </div>
+    <article class="panel about-card">
+      <p class="timeline-note">Selected milestones</p>
+      <ol class="experience-timeline">
+        <li>
+          <span class="timeline-period">2024–2026</span>
+          <div>
+            <h3>Avicenne Studio</h3>
+            <p>
+              Software engineer and technical lead across web, cloud, and blockchain projects,
+              from Node.js and TypeScript backends to React interfaces, GCP infrastructure,
+              Terraform, Kubernetes, and CI/CD.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="timeline-period">2024–Ongoing</span>
+          <div>
+            <h3>Fastify</h3>
+            <p>
+              Core contributor working with maintainers and contributors on code reviews, issues,
+              features, documentation, quality, and project maintenance.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="timeline-period">2024</span>
+          <div>
+            <h3>NodeSecure</h3>
+            <p>
+              Designed, integrated, and documented APIs across the JS-X-Ray and Scanner SAST
+              analysis components.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="timeline-period">2023–2024</span>
+          <div>
+            <h3>Memoriboost</h3>
+            <p>
+              Founded, developed, and launched an AI-assisted flashcard product with spaced
+              repetition, end-to-end tests, CI/CD, and production deployment.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="timeline-period">2022–2023</span>
+          <div>
+            <h3>3W Academy</h3>
+            <p>
+              Taught PHP, Symfony, JavaScript, and Node.js while mentoring students and helping
+              them strengthen their debugging and development fundamentals.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="timeline-period">2021–2022</span>
+          <div>
+            <h3>Maeva & Cocolabs</h3>
+            <p>
+              Junior developer roles at Maeva and Cocolabs. At Maeva, I contributed to internal
+              administration tools for a high-traffic platform. At Cocolabs, I worked on frontend
+              and backend tickets for a SUEZ marketplace.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="timeline-period">2018–2021</span>
+          <div>
+            <h3>Learning & Freelance</h3>
+            <p>
+              Focused on programming, object-oriented design, networking, Linux, hardware, and
+              other computer science fundamentals. Alongside this, I worked for several clients on
+              websites, frontend development for a medical application, and a language-learning
+              product. I also made small contributions to the PHP open-source ecosystem.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </article>
+  </section>
+
+  <section class="section section-anchor" id="recommendations">
+    <div class="section-heading">
+      <span class="eyebrow">Recommendations</span>
+      <h2>What collaborators say</h2>
+      <div class="section-line" aria-hidden="true"></div>
+    </div>
+    <div class="testimonial-group">
+      <h3>Managers</h3>
+      <div class="card-grid testimonial-grid">
+        {managerTestimonials.map((item) => <TestimonialCard {...item} />)}
+      </div>
+    </div>
+    <div class="testimonial-group">
+      <h3>Colleagues</h3>
+      <div class="card-grid testimonial-grid testimonial-grid--colleagues">
+        {colleagueTestimonials.map((item) => <TestimonialCard {...item} />)}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

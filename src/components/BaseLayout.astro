@@ -1,0 +1,61 @@
+---
+import "../styles/global.css";
+import { navigation, site } from "../data/site";
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+}
+
+const { title, description, path = "/" } = Astro.props;
+const canonical = new URL(path, site.siteUrl).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} | {site.title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} | ${site.title}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL("/og-image.svg", site.siteUrl).toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | ${site.title}`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL("/og-image.svg", site.siteUrl).toString()} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body id="top">
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="#top">
+          <strong>Jean Michelet</strong>
+          <span>Backend and cloud engineering</span>
+        </a>
+        <nav class="nav nav-primary" aria-label="Primary navigation">
+          {
+            navigation.map((item) => (
+              <a href={item.href}>{item.label}</a>
+            ))
+          }
+        </nav>
+      </div>
+    </header>
+    <main class="shell">
+      <slot />
+    </main>
+    <footer class="shell site-footer">
+      <small>© <span data-current-year></span> Jean Michelet. All rights reserved.</small>
+    </footer>
+    <script is:inline>
+      const year = document.querySelector("[data-current-year]");
+      if (year) year.textContent = String(new Date().getFullYear());
+    </script>
+  </body>
+</html>

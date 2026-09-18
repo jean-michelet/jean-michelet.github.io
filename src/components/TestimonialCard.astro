@@ -1,0 +1,53 @@
+---
+interface Props {
+  quote: string;
+  excerpt: string;
+  person: string;
+  role: string;
+  label?: string;
+  link?: string;
+  image?: string;
+}
+
+const { quote, excerpt, person, role, label, link, image } = Astro.props;
+const paragraphs = quote.split("\n\n");
+---
+
+<article class="panel card">
+  {image && <img class="testimonial-avatar" src={image} alt={person} />}
+  <p class="quote">{excerpt}</p>
+  <details class="testimonial-details">
+    <summary>See full testimonial</summary>
+    <div class="full-testimonial">
+      {
+        paragraphs.map((paragraph) => (
+          <p>
+            {paragraph.split("\n").map((line, index, lines) => (
+              <>
+                {line}
+                {index < lines.length - 1 && <br />}
+              </>
+            ))}
+          </p>
+        ))
+      }
+    </div>
+  </details>
+  <div class="card-footer">
+    <div class="card-person">
+      <p><strong>{person}</strong></p>
+      <p class="meta">{role}</p>
+      {label && <p class="meta">{label}</p>}
+    </div>
+    {link && (
+      <a class="icon-link" href={link} target="_blank" rel="noreferrer" aria-label={`${person} on LinkedIn`}>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M6.94 8.5H3.56V20h3.38V8.5Zm.22-3.56c0-1.08-.82-1.94-1.91-1.94s-1.9.86-1.9 1.94c0 1.05.81 1.91 1.88 1.91h.02c1.11 0 1.91-.86 1.91-1.91ZM20 13.05c0-3.46-1.85-5.07-4.32-5.07-1.99 0-2.88 1.09-3.38 1.86V8.5H8.93c.05.89 0 11.5 0 11.5h3.37v-6.42c0-.34.02-.68.12-.92.27-.68.89-1.39 1.93-1.39 1.36 0 1.91 1.05 1.91 2.6V20H20v-6.95Z"
+            fill="currentColor"
+          />
+        </svg>
+      </a>
+    )}
+  </div>
+</article>

@@ -1,0 +1,51 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro: string[];
+  primaryHref: string;
+  primaryLabel: string;
+  secondaryHref: string;
+  secondaryLabel: string;
+  tertiaryHref: string;
+  tertiaryLabel: string;
+}
+
+const {
+  eyebrow,
+  title,
+  intro,
+  primaryHref,
+  primaryLabel,
+  secondaryHref,
+  secondaryLabel,
+  tertiaryHref,
+  tertiaryLabel
+} = Astro.props;
+---
+
+<section class="hero">
+  <div class="hero-copy">
+    <div class="hero-top">
+      <span class="eyebrow">{eyebrow}</span>
+    </div>
+    <h1>{title}</h1>
+    <div class="hero-intro">
+      {intro.map((paragraph) => <p class="lede">{paragraph}</p>)}
+    </div>
+    <div class="cta-row">
+      <a class="button" href={primaryHref}>{primaryLabel}</a>
+      <a class="button-secondary" href={secondaryHref} target="_blank" rel="noreferrer">
+        {secondaryLabel}
+      </a>
+      <a class="button-secondary" href={tertiaryHref} target="_blank" rel="noreferrer">
+        {tertiaryLabel}
+      </a>
+    </div>
+  </div>
+  <div class="hero-visual" aria-hidden="true">
+    <div class="hero-portrait-frame">
+      <img class="hero-avatar" src="/avatar.png" alt="Portrait of Jean Michelet" />
+    </div>
+  </div>
+</section>
