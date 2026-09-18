@@ -25,7 +25,7 @@ export const testimonials = [
     excerpt:
       "Jean is professional, straightforward, and skilled. I recommend him without hesitation.",
     person: "Adam Aleb",
-    role: "Former employer",
+    role: "Former employer and executive",
     link: "https://www.linkedin.com/in/adam-aleb/",
     image: "/adam.jpeg",
     group: "manager"
