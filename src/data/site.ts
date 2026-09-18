@@ -14,7 +14,8 @@ export const site = {
 export const navigation = [
   { href: "#about", label: "About" },
   { href: "#learning", label: "Learning" },
-  { href: "#recommendations", label: "Recommendations" }
+  { href: "#recommendations", label: "Recommendations" },
+  { href: "#work-with-me", label: "Work With Me" }
 ];
 
 export const testimonials = [

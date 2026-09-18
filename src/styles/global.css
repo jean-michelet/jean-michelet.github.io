@@ -521,6 +521,23 @@ h3 {
   color: var(--muted-strong);
 }
 
+.hire-card {
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: clamp(1.6rem, 4vw, 2.5rem);
+  text-align: center;
+}
+
+.hire-card p {
+  max-width: 58ch;
+  margin: 0;
+  color: var(--muted-strong);
+  font-size: 1.05rem;
+}
+
 .experience-timeline h3 {
   font-size: 1.15rem;
   letter-spacing: -0.03em;
