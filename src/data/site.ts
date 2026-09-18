@@ -13,6 +13,7 @@ export const site = {
 
 export const navigation = [
   { href: "#about", label: "About" },
+  { href: "#learning", label: "Learning" },
   { href: "#recommendations", label: "Recommendations" }
 ];
 
