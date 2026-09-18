@@ -11,14 +11,30 @@ interface Props {
 
 const { quote, excerpt, person, role, label, link, image } = Astro.props;
 const paragraphs = quote.split("\n\n");
+const modalId = `testimonial-${person.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+const modalTitleId = `${modalId}-title`;
 ---
 
 <article class="panel card">
   {image && <img class="testimonial-avatar" src={image} alt={person} />}
   <p class="quote">{excerpt}</p>
-  <details class="testimonial-details">
-    <summary>See full testimonial</summary>
-    <div class="full-testimonial">
+  <button class="testimonial-trigger" type="button" data-dialog-id={modalId}>
+    See full testimonial
+  </button>
+  <dialog class="testimonial-dialog" id={modalId} aria-labelledby={modalTitleId}>
+    <div class="testimonial-dialog-inner">
+      <div class="testimonial-dialog-header">
+        <div>
+          <span class="eyebrow">Full testimonial</span>
+          <h3 id={modalTitleId}>{person}</h3>
+        </div>
+        <form method="dialog">
+          <button class="dialog-close" type="submit" aria-label={`Close ${person}’s testimonial`}>
+            <span aria-hidden="true">×</span>
+          </button>
+        </form>
+      </div>
+      <div class="full-testimonial">
       {
         paragraphs.map((paragraph) => (
           <p>
@@ -31,8 +47,12 @@ const paragraphs = quote.split("\n\n");
           </p>
         ))
       }
+      </div>
+      <p class="testimonial-dialog-role">
+        <strong>{person}</strong> · {role}{label && ` · ${label}`}
+      </p>
     </div>
-  </details>
+  </dialog>
   <div class="card-footer">
     <div class="card-person">
       <p><strong>{person}</strong></p>
@@ -51,3 +71,18 @@ const paragraphs = quote.split("\n\n");
     )}
   </div>
 </article>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-dialog-id]").forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const dialog = document.getElementById(trigger.dataset.dialogId ?? "") as HTMLDialogElement | null;
+      dialog?.showModal();
+    });
+  });
+
+  document.querySelectorAll<HTMLDialogElement>(".testimonial-dialog").forEach((dialog) => {
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  });
+</script>
